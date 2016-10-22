@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
+	"github.com/atotto/clipboard"
 	"golang.org/x/crypto/scrypt"
 	"golang.org/x/crypto/ssh/terminal"
 	"os"
 	"strings"
+	"time"
 )
 
 const (
-	SALT = "$sleutel#%s#sleutel$"
+	SALT     = "$sleutel#%s#sleutel$"
+	Duration = 20
 )
 
 func createSalt(acc string) []byte {
@@ -42,13 +45,22 @@ func main() {
 		panic(err)
 	}
 
+	terminal.Restore(int(os.Stdin.Fd()), oldState)
+
 	hash, err := createPass(password, account)
 	if err != nil {
 		panic(err)
 	}
 
-	terminal.Restore(int(os.Stdin.Fd()), oldState)
+	clipboard.WriteAll(fmt.Sprintf("%X", hash))
 
-	fmt.Printf("%X\n", hash)
+	fmt.Printf("Password copied to clipboard. Will clear in %dsecs.\n", Duration)
 
+	time.Sleep(time.Second * 20)
+
+	clipboard.WriteAll("")
+
+	fmt.Println("Cleared password from keyboard. Exiting application.....")
+
+	time.Sleep(time.Second * 5)
 }
