@@ -1,0 +1,9 @@
+# github.com/atotto/clipboard v0.1.2
+github.com/atotto/clipboard
+# golang.org/x/crypto v0.0.0-20191117063200-497ca9f6d64f
+golang.org/x/crypto/pbkdf2
+golang.org/x/crypto/scrypt
+golang.org/x/crypto/ssh/terminal
+# golang.org/x/sys v0.0.0-20190412213103-97732733099d
+golang.org/x/sys/unix
+golang.org/x/sys/windows
